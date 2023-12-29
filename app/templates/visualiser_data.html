@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisation des données</title>
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/visualiser.css' %}">
+        <link href="{% static 'webfonts/all.min.css' %}" rel="stylesheet">
+
+    {% endblock %}
+    <style>
+        body {
+            background-color: black; /* Set the background color to black */
+            color: black; /* Set text color to white for better visibility */
+        }
+    </style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<body>
+   
+    <div class="card1">
+        <a href="{% url 'app' %}" class="back-button">
+            <i class="fas fa-home"></i> Home
+        </a>
+       
+        <h2>Formulaire </h2>
+        <form method="post" action="{% url 'visualiser_chart' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <select id="type_chart" name="type_chart">
+                <option value="Nothing">-</option>
+                <option value="Barplot">Barplot</option>
+                <option value="histogram">histogram</option>
+                <option value="piechart">piechart</option>
+                
+                <option value="scatterplot">Scatterplot</option>
+                <option value="heatmap">heatmap</option>
+                <option value="lineplot">lineplot</option>
+                <option value="boxplot">boxplot</option>
+                <option value="violinplot">violinplot</option>
+                <option value="kdeplot">kdeplot</option>
+            </select>
+            <select id="col_name1" name="col_name1">
+                {% for col in column_names %}
+                    <option value="{{ col }}">{{ col }}</option>
+                {% endfor %}
+            </select>
+            <select id="col_name2" name="col_name2">
+                {% for col in column_names %}
+                    <option value="{{ col }}">{{ col }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+    <div class="card">
+        {% if df %}
+            <h3>Data :</h3>
+            <div style="overflow-x: auto; overflow-y: auto;height: 550px;">
+                <table>
+                    {{ df|safe }}
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        // Cacher les listes déroulantes au chargement initial de la page
+        $('#col_name1, #col_name2').hide();
+    
+        $('#type_chart').change(function(){
+            var selected_chart = $(this).val();
+            console.log(selected_chart);  // Vérifier la valeur sélectionnée dans la console
+            
+            if (selected_chart === 'scatterplot' || selected_chart === 'lineplot' || selected_chart === 'Barplot') {
+                $('#col_name1, #col_name2').show();  
+            } else if (selected_chart === 'kdeplot' || selected_chart === 'histogram' || selected_chart === 'piechart' || selected_chart === 'boxplot' || selected_chart === 'violinplot') {
+                $('#col_name1').show();  
+                $('#col_name2').hide();  
+            } else if (selected_chart === 'heatmap' || selected_chart === 'Nothing') {
+                $('#col_name1, #col_name2').hide(); 
+            }
+        });
+    });
+    
+    
+    
+</script>
+</html>

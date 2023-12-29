@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bernoulli Distribution</title>
+        {% block styles %}
+        <link rel="stylesheet" type="text/css"
+            href="{% static 'css/lois.css' %}">
+            <style>
+                body {
+                    background-color: black; /* Set the background color to black */
+                    color: white; /* Set text color to white for better visibility */
+                }
+            </style>
+
+        {% endblock %}
+        <style>
+        #bernoulli-plot {
+            margin: 20px auto;
+            width: 80%;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+    </style>
+
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+    <body>
+        <a href="{% url 'app' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+        <h1>Bernoulli Distribution</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Afficher le graphique</button>
+        </form>
+
+        <div id="bernoulli-plot"></div>
+
+        <script>
+        var plotData = {{ plot_data|safe }};
+        Plotly.newPlot('bernoulli-plot', plotData);
+    </script>
+    </body>
+</html>

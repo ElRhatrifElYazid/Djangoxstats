@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... -->
+    <title>Chart Display</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<style>
+    body {
+        background-color: black; /* Set the background color to black */
+        color: white; /* Set text color to white for better visibility */
+    }
+    .error-message {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #f5c6cb;
+        margin: 20px 0;
+    }
+</style>
+
+<body>
+    {% if chart %}
+        <div class="card">
+            <div id="plotly-chart"></div>
+        </div>
+        <script>
+            var chartData = '{{ chart|safe }}'; // Encadrer chart avec des apostrophes simples
+            Plotly.newPlot('plotly-chart', JSON.parse(chartData), {});
+        </script>
+    {% else %}
+        {% if error_message %}
+        <div class="error-message">
+            <p>{{ error_message }}</p>
+            <button onclick="history.back()"> Retour</button>
+        </div>
+        {% else %}
+            <p>Aucune donnée de diagramme disponible pour l'instant.</p>
+        {% endif %}
+    {% endif %}
+</body>
+<style>.error-message button {
+    padding: 5px 10px;
+    background-color: #ff6b6b;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.error-message button:hover {
+    background-color: #ff4747;
+}</style>
+</html>

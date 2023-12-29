@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="{% static 'webfonts/all.min.css' %}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212; /* Dark gray background */
+            color: #fff; /* White text color */
+            font-family: Arial, sans-serif; /* Fallback font */
+            margin: 0;
+            padding: 0;
+        }
+
+        .tools__container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            padding: 0 20px;
+        }
+
+        .tools__item {
+            text-align: center;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #333; /* Darker background for each tool item */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .tools__item:hover {
+            transform: translateY(-5px);
+        }
+
+        .tools__item a {
+            text-decoration: none;
+            color: #fff; /* White link color */
+        }
+
+        .tools__item__icon img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+    </style>
+    {% endblock %}
+    <meta charset="UTF-8">
+    <title>Statistiques</title>
+</head>
+<body class="lang-fr home">
+
+<div class="tools">
+
+    <div class="tools__container">
+        <div class="tools__item">
+            <a href="{% url 'excel' %}" title="Fusionner PDF">
+                <div class="tools__item__icon">
+                    <img src="../static/img/fichier.png" alt="I.Y" />
+                </div>
+                <h3>Upload a File</h3>
+            </a>
+        </div>
+                <div class="tools__item">
+                    <a href="{% url 'Binomiale' %}" title="PDF en Excel">
+                        <div class="tools__item__icon">
+                            <img src="../static/img/binomiale.png" alt="I.Y"
+                            width="40" height="40" viewBox="0 0 50 50" />
+                        </div>
+                        <h3>Loi Binomial</h3>      
+                    </a>
+                </div>
+                <div class="tools__item">
+                    <a href="{% url 'Bernoulli' %}" title="PDF en Excel">
+                        <div class="tools__item__icon">
+                            <img src="../static/img/loi bernouilli.png" alt="I.Y"
+                            width="40" height="40" viewBox="0 0 50 50" />
+                        </div>
+                        <h3>Loi Bernoulli </h3>      
+                    </a>
+                </div>
+                <div class="tools__item">
+                    <a href="{% url 'Uniforme' %}" title="PDF en Excel">
+                        <div class="tools__item__icon">
+                            <img src="../static/img/uniforme.png" alt="I.Y"
+                            width="40" height="40" viewBox="0 0 50 50" />
+                        </div>
+                        <h3>Loi Uniforme</h3>      
+                    </a>
+                </div>
+                <div class="tools__item">
+                    <a href="{% url 'Poisson' %}" title="PDF en Excel">
+                        <div class="tools__item__icon">
+                            <img src="../static/img/poisson.png" alt="I.Y"
+                            width="40" height="40" viewBox="0 0 50 50" />
+                        </div>
+                        <h3>Loi Poisson</h3>      
+                    </a>
+                </div>
+                
+               
+               
+                <div class="tools__item">
+                    <a href="{% url 'Exponentielle' %}" title="PDF en Excel">
+                        <div class="tools__item__icon">
+                            <img src="../static/img/expo.png" alt="I.Y"
+                            width="40" height="40" viewBox="0 0 50 50" />
+                        </div>
+                        <h3>Loi exponentielle</h3>      
+                    </a>
+                </div>
+                <div class="tools__item">
+                    <a href="{% url 'Normale' %}" title="PDF en Excel">
+                        <div class="tools__item__icon">
+                            <img src="../static/img/normal.png" alt="I.Y"
+                            width="40" height="40" viewBox="0 0 50 50" />
+                        </div>
+                        <h3>Loi Normale Continue
+                        </h3>      
+                    </a>
+                </div>
+                
+            </div>
+
+        </body>
+    </html>
